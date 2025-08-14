@@ -1,0 +1,30 @@
+services:
+  api:
+    build: .
+    container_name: go-datadog-api
+    ports:
+      - "8080:8080"
+    environment:
+      - DD_AGENT_HOST=datadog-agent
+    depends_on:
+      datadog-agent:
+        condition: service_healthy
+  datadog-agent:
+    image: datadog/agent:latest
+    container_name: datadog-agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+    environment:
+      - DD_API_KEY=${DATADOG_API_KEY}
+      - DD_SITE=datadoghq.eu
+      - DD_APM_ENABLED=true
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+      - DD_LOGS_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+    healthcheck:
+      test: ["CMD-SHELL", "agent status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
