@@ -13,3 +13,5 @@ run: check-env
 	docker-compose up -d --build
 down:
 	docker-compose down
+test:
+	go test
