@@ -1,4 +1,4 @@
-.PHONY: build run check-env
+.PHONY: check-env up run down test
 
 check-env:
 	@if [ ! -f .env ]; then \

@@ -12,7 +12,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func reportHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Generating a report log and sending it to Data Dog APM with automatic instrumentation...")
+	fmt.Println("Generating a report log and sending it to Datadog APM with automatic instrumentation...")
 
 	// Simulate a blocking operation that takes 1 second
 	time.Sleep(1 * time.Second)
